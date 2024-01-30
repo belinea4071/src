@@ -13,9 +13,6 @@ print_progress "Cockpit"
 apt-get install cockpit -y
 print_done
 
-# Install zfsutils-linux
-# apt install zfsutils-linux -y
-
 # Enable and start Cockpit service
 print_progress "Cockpit service"
 systemctl enable cockpit.service
