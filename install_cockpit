@@ -50,9 +50,9 @@ apt install cockpit-zfs-manager -y
 print_done
 
 # Install additional Cockpit packages
-print_progress "Additional Cockpit packages"
-apt-get install -y cockpit cockpit-packagekit cockpit-pcp cockpit-storaged tuned
-print_done
+#print_progress "Additional Cockpit packages"
+#apt-get install -y cockpit cockpit-packagekit cockpit-pcp cockpit-storaged tuned
+#print_done
 
 # Add dummy network interface
 print_progress "Dummy network interface"
