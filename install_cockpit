@@ -73,21 +73,11 @@ print_progress "Restarting Cockpit service"
 systemctl restart cockpit.service
 print_done
 
-# Create a new user "eberle" with Samba permissions
-print_progress "Creating user 'eberle' with Samba permissions"
-useradd -m eberle
-echo "Set a password for the user 'eberle':"
-passwd eberle
-
 # Install Samba if not installed
 print_progress "Installing Samba"
 apt-get install -y samba
 print_done
 
-# Add "eberle" to Samba
-print_progress "Adding 'eberle' to Samba"
-smbpasswd -a eberle
-print_done
 
 # Display information
 cat <<EOF
