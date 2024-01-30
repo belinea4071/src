@@ -1,58 +1,96 @@
 #!/bin/bash
 
+function print_progress() {
+    echo -n "Installing $1..."
+}
+
+function print_done() {
+    echo "done."
+}
+
 # Install Cockpit
+print_progress "Cockpit"
 apt-get install cockpit -y
+print_done
 
 # Install zfsutils-linux
 # apt install zfsutils-linux -y
 
 # Enable and start Cockpit service
+print_progress "Cockpit service"
 systemctl enable cockpit.service
 systemctl start cockpit.service
+print_done
 
 # Install 45drives repository
+print_progress "45drives repository"
 curl -sSL https://repo.45drives.com/setup | sudo bash
+print_done
 
 # Update package list
+print_progress "Updating package list"
 apt-get update
+print_done
 
 # Install cockpit-file-sharing
+print_progress "cockpit-file-sharing"
 apt install cockpit-file-sharing -y
+print_done
 
 # Install cockpit-navigator
+print_progress "cockpit-navigator"
 apt install cockpit-navigator -y
+print_done
 
 # Install cockpit-identities
+print_progress "cockpit-identities"
 apt install cockpit-identities -y
-
-# Add dummy network interface
-nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
+print_done
 
 # Install cockpit-zfs-manager
+print_progress "cockpit-zfs-manager"
 apt install cockpit-zfs-manager -y
+print_done
 
 # Install additional Cockpit packages
+print_progress "Additional Cockpit packages"
 apt-get install -y cockpit cockpit-packagekit cockpit-pcp cockpit-storaged tuned
+print_done
+
+# Add dummy network interface
+print_progress "Dummy network interface"
+nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
+print_done
 
 # Uncomment entry for root in /etc/cockpit/disallowed-users
-sed -i 's/#root/root/' /etc/cockpit/disallowed-users
+print_progress "Commenting entry for root in /etc/cockpit/disallowed-users"
+sed -i 's/root/#root/' /etc/cockpit/disallowed-users
+print_done
+
 
 # Get server IP address
 server_ip=$(hostname -I | awk '{print $1}')
 
 # Restart Cockpit service
+print_progress "Restarting Cockpit service"
 systemctl restart cockpit.service
+print_done
 
 # Create a new user "eberle" with Samba permissions
+print_progress "Creating user 'eberle' with Samba permissions"
 useradd -m eberle
 echo "Set a password for the user 'eberle':"
 passwd eberle
 
 # Install Samba if not installed
+print_progress "Installing Samba"
 apt-get install -y samba
+print_done
 
 # Add "eberle" to Samba
+print_progress "Adding 'eberle' to Samba"
 smbpasswd -a eberle
+print_done
 
 # Display information
 cat <<EOF
