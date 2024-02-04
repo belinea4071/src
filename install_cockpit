@@ -92,7 +92,5 @@ Cockpit has been successfully installed and configured.
 The entry for root in /etc/cockpit/disallowed-users has been uncommented.
 You can access Cockpit by navigating to http://$server_ip:9090 in your web browser.
 
-User 'eberle' has been created with Samba permissions.
-Make sure to remember the password you set for 'eberle'.
 
 EOF
